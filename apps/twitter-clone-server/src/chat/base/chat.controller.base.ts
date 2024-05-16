@@ -34,6 +34,9 @@ export class ChatControllerBase {
       select: {
         createdAt: true,
         id: true,
+        message: true,
+        sender: true,
+        timestamp: true,
         updatedAt: true,
       },
     });
@@ -49,6 +52,9 @@ export class ChatControllerBase {
       select: {
         createdAt: true,
         id: true,
+        message: true,
+        sender: true,
+        timestamp: true,
         updatedAt: true,
       },
     });
@@ -65,6 +71,9 @@ export class ChatControllerBase {
       select: {
         createdAt: true,
         id: true,
+        message: true,
+        sender: true,
+        timestamp: true,
         updatedAt: true,
       },
     });
@@ -90,6 +99,9 @@ export class ChatControllerBase {
         select: {
           createdAt: true,
           id: true,
+          message: true,
+          sender: true,
+          timestamp: true,
           updatedAt: true,
         },
       });
@@ -115,6 +127,9 @@ export class ChatControllerBase {
         select: {
           createdAt: true,
           id: true,
+          message: true,
+          sender: true,
+          timestamp: true,
           updatedAt: true,
         },
       });

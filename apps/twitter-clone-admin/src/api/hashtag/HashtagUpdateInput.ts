@@ -1,1 +1,3 @@
-export type HashtagUpdateInput = {};
+export type HashtagUpdateInput = {
+  tag?: string | null;
+};

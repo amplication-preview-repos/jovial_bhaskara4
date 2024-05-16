@@ -17,7 +17,10 @@ import { Profile } from "./Profile";
 import { ProfileCountArgs } from "./ProfileCountArgs";
 import { ProfileFindManyArgs } from "./ProfileFindManyArgs";
 import { ProfileFindUniqueArgs } from "./ProfileFindUniqueArgs";
+import { CreateProfileArgs } from "./CreateProfileArgs";
+import { UpdateProfileArgs } from "./UpdateProfileArgs";
 import { DeleteProfileArgs } from "./DeleteProfileArgs";
+import { User } from "../../user/base/User";
 import { ProfileService } from "../profile.service";
 @graphql.Resolver(() => Profile)
 export class ProfileResolverBase {
@@ -51,6 +54,51 @@ export class ProfileResolverBase {
   }
 
   @graphql.Mutation(() => Profile)
+  async createProfile(
+    @graphql.Args() args: CreateProfileArgs
+  ): Promise<Profile> {
+    return await this.service.createProfile({
+      ...args,
+      data: {
+        ...args.data,
+
+        user: args.data.user
+          ? {
+              connect: args.data.user,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @graphql.Mutation(() => Profile)
+  async updateProfile(
+    @graphql.Args() args: UpdateProfileArgs
+  ): Promise<Profile | null> {
+    try {
+      return await this.service.updateProfile({
+        ...args,
+        data: {
+          ...args.data,
+
+          user: args.data.user
+            ? {
+                connect: args.data.user,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
+  @graphql.Mutation(() => Profile)
   async deleteProfile(
     @graphql.Args() args: DeleteProfileArgs
   ): Promise<Profile | null> {
@@ -64,5 +112,18 @@ export class ProfileResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => User, {
+    nullable: true,
+    name: "user",
+  })
+  async getUser(@graphql.Parent() parent: Profile): Promise<User | null> {
+    const result = await this.service.getUser(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

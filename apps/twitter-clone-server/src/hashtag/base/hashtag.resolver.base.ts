@@ -17,6 +17,8 @@ import { Hashtag } from "./Hashtag";
 import { HashtagCountArgs } from "./HashtagCountArgs";
 import { HashtagFindManyArgs } from "./HashtagFindManyArgs";
 import { HashtagFindUniqueArgs } from "./HashtagFindUniqueArgs";
+import { CreateHashtagArgs } from "./CreateHashtagArgs";
+import { UpdateHashtagArgs } from "./UpdateHashtagArgs";
 import { DeleteHashtagArgs } from "./DeleteHashtagArgs";
 import { HashtagService } from "../hashtag.service";
 @graphql.Resolver(() => Hashtag)
@@ -48,6 +50,35 @@ export class HashtagResolverBase {
       return null;
     }
     return result;
+  }
+
+  @graphql.Mutation(() => Hashtag)
+  async createHashtag(
+    @graphql.Args() args: CreateHashtagArgs
+  ): Promise<Hashtag> {
+    return await this.service.createHashtag({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @graphql.Mutation(() => Hashtag)
+  async updateHashtag(
+    @graphql.Args() args: UpdateHashtagArgs
+  ): Promise<Hashtag | null> {
+    try {
+      return await this.service.updateHashtag({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Hashtag)

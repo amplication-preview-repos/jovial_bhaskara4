@@ -18,25 +18,33 @@ import { ProfileService } from "../profile.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  bio: "exampleBio",
   createdAt: new Date(),
   id: "exampleId",
+  location: "exampleLocation",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  bio: "exampleBio",
   createdAt: new Date(),
   id: "exampleId",
+  location: "exampleLocation",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    bio: "exampleBio",
     createdAt: new Date(),
     id: "exampleId",
+    location: "exampleLocation",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  bio: "exampleBio",
   createdAt: new Date(),
   id: "exampleId",
+  location: "exampleLocation",
   updatedAt: new Date(),
 };
 

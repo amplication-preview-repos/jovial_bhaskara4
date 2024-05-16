@@ -32,11 +32,27 @@ export class ProfileControllerBase {
     @common.Body() data: ProfileCreateInput
   ): Promise<Profile> {
     return await this.service.createProfile({
-      data: data,
+      data: {
+        ...data,
+
+        user: data.user
+          ? {
+              connect: data.user,
+            }
+          : undefined,
+      },
       select: {
+        bio: true,
         createdAt: true,
         id: true,
+        location: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -49,9 +65,17 @@ export class ProfileControllerBase {
     return this.service.profiles({
       ...args,
       select: {
+        bio: true,
         createdAt: true,
         id: true,
+        location: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -65,9 +89,17 @@ export class ProfileControllerBase {
     const result = await this.service.profile({
       where: params,
       select: {
+        bio: true,
         createdAt: true,
         id: true,
+        location: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -88,11 +120,27 @@ export class ProfileControllerBase {
     try {
       return await this.service.updateProfile({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          user: data.user
+            ? {
+                connect: data.user,
+              }
+            : undefined,
+        },
         select: {
+          bio: true,
           createdAt: true,
           id: true,
+          location: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -115,9 +163,17 @@ export class ProfileControllerBase {
       return await this.service.deleteProfile({
         where: params,
         select: {
+          bio: true,
           createdAt: true,
           id: true,
+          location: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

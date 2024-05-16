@@ -10,6 +10,7 @@ import {
 } from "react-admin";
 
 import { PostTitle } from "../post/PostTitle";
+import { ProfileTitle } from "../profile/ProfileTitle";
 
 export const UserEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -24,6 +25,14 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={PostTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="profiles"
+          reference="Profile"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ProfileTitle} />
         </ReferenceArrayInput>
         <TextInput label="username" source="username" />
       </SimpleForm>

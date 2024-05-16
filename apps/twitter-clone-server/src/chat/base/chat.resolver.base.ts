@@ -17,6 +17,8 @@ import { Chat } from "./Chat";
 import { ChatCountArgs } from "./ChatCountArgs";
 import { ChatFindManyArgs } from "./ChatFindManyArgs";
 import { ChatFindUniqueArgs } from "./ChatFindUniqueArgs";
+import { CreateChatArgs } from "./CreateChatArgs";
+import { UpdateChatArgs } from "./UpdateChatArgs";
 import { DeleteChatArgs } from "./DeleteChatArgs";
 import { ChatService } from "../chat.service";
 @graphql.Resolver(() => Chat)
@@ -44,6 +46,31 @@ export class ChatResolverBase {
       return null;
     }
     return result;
+  }
+
+  @graphql.Mutation(() => Chat)
+  async createChat(@graphql.Args() args: CreateChatArgs): Promise<Chat> {
+    return await this.service.createChat({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @graphql.Mutation(() => Chat)
+  async updateChat(@graphql.Args() args: UpdateChatArgs): Promise<Chat | null> {
+    try {
+      return await this.service.updateChat({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Chat)

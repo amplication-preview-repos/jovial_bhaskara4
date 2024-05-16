@@ -13,6 +13,9 @@ export const ChatShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="message" source="message" />
+        <TextField label="Sender" source="sender" />
+        <TextField label="timestamp" source="timestamp" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

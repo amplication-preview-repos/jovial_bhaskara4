@@ -36,6 +36,7 @@ export class HashtagControllerBase {
       select: {
         createdAt: true,
         id: true,
+        tag: true,
         updatedAt: true,
       },
     });
@@ -51,6 +52,7 @@ export class HashtagControllerBase {
       select: {
         createdAt: true,
         id: true,
+        tag: true,
         updatedAt: true,
       },
     });
@@ -67,6 +69,7 @@ export class HashtagControllerBase {
       select: {
         createdAt: true,
         id: true,
+        tag: true,
         updatedAt: true,
       },
     });
@@ -92,6 +95,7 @@ export class HashtagControllerBase {
         select: {
           createdAt: true,
           id: true,
+          tag: true,
           updatedAt: true,
         },
       });
@@ -117,6 +121,7 @@ export class HashtagControllerBase {
         select: {
           createdAt: true,
           id: true,
+          tag: true,
           updatedAt: true,
         },
       });

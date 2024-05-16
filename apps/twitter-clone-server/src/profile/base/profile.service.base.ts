@@ -10,7 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Profile as PrismaProfile } from "@prisma/client";
+import {
+  Prisma,
+  Profile as PrismaProfile,
+  User as PrismaUser,
+} from "@prisma/client";
 
 export class ProfileServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -43,5 +47,13 @@ export class ProfileServiceBase {
     args: Prisma.SelectSubset<T, Prisma.ProfileDeleteArgs>
   ): Promise<PrismaProfile> {
     return this.prisma.profile.delete(args);
+  }
+
+  async getUser(parentId: string): Promise<PrismaUser | null> {
+    return this.prisma.profile
+      .findUnique({
+        where: { id: parentId },
+      })
+      .user();
   }
 }

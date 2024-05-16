@@ -34,6 +34,22 @@ export const UserShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
           </Datagrid>
         </ReferenceManyField>
+        <ReferenceManyField
+          reference="Profile"
+          target="userId"
+          label="Profiles"
+        >
+          <Datagrid rowClick="show">
+            <TextField label="bio" source="bio" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <TextField label="location" source="location" />
+            <DateField source="updatedAt" label="Updated At" />
+            <ReferenceField label="User" source="user.id" reference="User">
+              <TextField source={USER_TITLE_FIELD} />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
       </SimpleShowLayout>
     </Show>
   );

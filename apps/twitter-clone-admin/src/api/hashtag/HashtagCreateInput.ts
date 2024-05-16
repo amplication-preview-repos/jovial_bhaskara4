@@ -1,1 +1,3 @@
-export type HashtagCreateInput = {};
+export type HashtagCreateInput = {
+  tag?: string | null;
+};
